@@ -1,0 +1,18 @@
+[Unit]
+Description=OMCP ONION Control Panel Service
+After=network.target
+
+[Service]
+Type=simple
+User=onion
+Group=onion
+WorkingDirectory=/opt/omcp-onion
+EnvironmentFile=/etc/omcp-onion/panel.env
+ExecStart=/opt/omcp-onion/venv/bin/uvicorn panel.main:app --host 127.0.0.1 --port 8080 --workers 2
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
